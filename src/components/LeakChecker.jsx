@@ -26,7 +26,10 @@ function LeakChecker() {
       setSentPrefix(prefix)
 
       // 3. 서버에는 앞 5글자만 보내기
-      const res = await fetch(`https://api.pwnedpasswords.com/range/${prefix}`)
+      //    Add-Padding: 가짜 항목(횟수 0)을 섞어 응답 크기로 추측하지 못하게 함
+      const res = await fetch(`https://api.pwnedpasswords.com/range/${prefix}`, {
+        headers: { 'Add-Padding': 'true' },
+      })
       if (!res.ok) throw new Error('요청 실패')
       const text = await res.text()
 
