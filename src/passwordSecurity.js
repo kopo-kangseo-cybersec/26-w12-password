@@ -6,6 +6,29 @@ const CHARACTER_SETS = {
 }
 
 const HIBP_RANGE_URL = 'https://api.pwnedpasswords.com/range/'
+const SEQUENTIAL_PATTERNS = [
+  '0123456789',
+  'abcdefghijklmnopqrstuvwxyz',
+  'qwertyuiop',
+  'asdfghjkl',
+  'zxcvbnm',
+]
+
+function hasPredictableSequence(password) {
+  const normalizedPassword = password.toLowerCase()
+
+  return SEQUENTIAL_PATTERNS.some((sequence) => {
+    const candidates = [sequence, [...sequence].reverse().join('')]
+    return candidates.some((candidate) => {
+      for (let index = 0; index <= candidate.length - 4; index += 1) {
+        if (normalizedPassword.includes(candidate.slice(index, index + 4))) {
+          return true
+        }
+      }
+      return false
+    })
+  })
+}
 
 export function getPasswordStrength(password) {
   if (!password) {
@@ -32,8 +55,12 @@ export function getPasswordStrength(password) {
   if (categories === 4) score += 1
 
   const hasRepeatedCharacters = /(.)\1{3,}/u.test(password)
-  const hasCommonPattern = /^(password|qwerty|123456|letmein)/i.test(password)
-  if (hasRepeatedCharacters || hasCommonPattern) {
+  const hasCommonPattern = /(password|letmein)/i.test(password)
+  if (
+    hasRepeatedCharacters ||
+    hasCommonPattern ||
+    hasPredictableSequence(password)
+  ) {
     score = Math.max(0, score - 2)
   }
 
@@ -152,7 +179,7 @@ export async function checkPasswordPwned(password, signal) {
     if (candidateSuffix !== suffix) continue
 
     const count = Number(line.slice(separatorIndex + 1).trim())
-    return Number.isSafeInteger(count) && count > 0 ? count : 0
+    if (Number.isSafeInteger(count) && count > 0) return count
   }
 
   return 0
