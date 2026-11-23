@@ -35,7 +35,7 @@
 
 ## 실행 및 배포 링크
 
-- Netlify 배포 URL: https://yepassword.netlify.app (외부 확인 결과 HTTP 401, 공개 접근 설정 확인 필요)
+- Netlify 배포 URL: https://yepassword.netlify.app
 - GitHub Pages 배포 URL: https://yoooooeun.github.io/password/
 
 ## 나만의 확장 기능
