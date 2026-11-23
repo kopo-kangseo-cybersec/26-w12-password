@@ -6,6 +6,13 @@ const UPPER = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 const NUMBERS = '0123456789'
 const SYMBOLS = '!@#$%^&*()-_=+[]{};:,.?'
 
+// 0 ~ max-1 사이 안전한 난수 하나 뽑기
+function randomIndex(max) {
+  const arr = new Uint32Array(1)
+  crypto.getRandomValues(arr)
+  return arr[0] % max
+}
+
 function Generator() {
   const [length, setLength] = useState(16)
   const [useLower, setUseLower] = useState(true)
@@ -15,24 +22,36 @@ function Generator() {
   const [result, setResult] = useState('')
   const [copied, setCopied] = useState(false)
 
-  // 체크된 종류만 모아서 후보 문자열 만들기
-  let chars = ''
-  if (useLower) chars += LOWER
-  if (useUpper) chars += UPPER
-  if (useNumbers) chars += NUMBERS
-  if (useSymbols) chars += SYMBOLS
+  // 체크된 종류만 모으기
+  const groups = []
+  if (useLower) groups.push(LOWER)
+  if (useUpper) groups.push(UPPER)
+  if (useNumbers) groups.push(NUMBERS)
+  if (useSymbols) groups.push(SYMBOLS)
+  const allChars = groups.join('')
 
   function generate() {
-    // 안전한 난수: crypto.getRandomValues (Math.random 사용 X)
-    const randomNumbers = new Uint32Array(length)
-    crypto.getRandomValues(randomNumbers)
+    const chars = []
 
-    let password = ''
-    for (let i = 0; i < length; i++) {
-      password += chars[randomNumbers[i] % chars.length]
+    // 1. 체크한 종류마다 최소 1글자씩 먼저 넣기
+    for (const group of groups) {
+      chars.push(group[randomIndex(group.length)])
     }
 
-    setResult(password)
+    // 2. 남은 길이는 전체 후보에서 채우기
+    while (chars.length < length) {
+      chars.push(allChars[randomIndex(allChars.length)])
+    }
+
+    // 3. 순서 섞기 (앞자리가 항상 소문자, 대문자...로 시작하지 않게)
+    for (let i = chars.length - 1; i > 0; i--) {
+      const j = randomIndex(i + 1)
+      const temp = chars[i]
+      chars[i] = chars[j]
+      chars[j] = temp
+    }
+
+    setResult(chars.join(''))
     setCopied(false)
   }
 
@@ -70,7 +89,7 @@ function Generator() {
       </div>
 
       <p>
-        <button onClick={generate} disabled={chars === ''}>
+        <button onClick={generate} disabled={groups.length === 0}>
           생성
         </button>
       </p>
@@ -84,7 +103,10 @@ function Generator() {
         </div>
       )}
 
-      <p className="note">crypto.getRandomValues()로 예측하기 어려운 난수를 만들어 생성합니다.</p>
+      <p className="note">
+        crypto.getRandomValues()로 예측하기 어려운 난수를 만들고, 체크한 문자 종류는 최소 1글자씩 꼭
+        포함합니다.
+      </p>
     </section>
   )
 }
