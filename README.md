@@ -55,9 +55,9 @@ Network 요청은 HTTP 200으로 응답했고, URL에는 SHA-1 접두사 5글자
 ## 배포 링크
 
 - Netlify: 미배포 — Netlify 계정에서 이 저장소를 연결하고 `npm run build` / `dist`로 배포한 뒤 URL을 기입합니다.
-- GitHub Pages: [https://yyoojjoo.github.io/26-w12-password/](https://yyoojjoo.github.io/26-w12-password/) — 빌드 결과물은 `gh-pages` 브랜치에 게시했습니다. 이 저장소의 **Settings → Pages → Build and deployment**에서 Source를 `Deploy from a branch`, Branch를 `gh-pages`, 폴더를 `/(root)`로 선택하고 저장해야 이 주소에 앱이 표시됩니다.
+- GitHub Pages: [https://yyoojjoo.github.io/26-w12-password/](https://yyoojjoo.github.io/26-w12-password/) — `gh-pages` 브랜치에 빌드 결과물을 게시했고 Pages 배포가 완료됐습니다.
 
-GitHub Pages가 현재 `dev` 브랜치의 원본 Vite 파일을 제공하고 있어 앱 스크립트가 404됩니다. Pages 소스를 `gh-pages`로 변경하면 빌드된 앱이 제공됩니다. 배포 스크립트는 빌드 결과물인 `dist`를 `gh-pages` 브랜치에 게시합니다.
+`gh-pages`에는 배포에 필요한 빌드 결과물(`index.html`, `assets/`)을 둡니다. 개발 소스는 `dev` 브랜치에서 관리하고, `npm run deploy`로 새 빌드 결과를 `gh-pages`에 게시합니다.
 
 ## 확장 기능
 
