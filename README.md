@@ -58,7 +58,7 @@
 
 ## 실행 및 배포 링크
 
-- **Netlify 배포 URL**: `https://cyberpass-w12.netlify.app` *(또는 Netlify 대시보드 연결 URL)*
+- **Netlify 배포 URL**: https://joyful-moonbeam-fc3682.netlify.app/
 - **GitHub Pages 배포 URL**: `https://saltedsec.github.io/26-w12-password/`
 
 ---

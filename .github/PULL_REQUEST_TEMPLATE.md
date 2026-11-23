@@ -1,27 +1,27 @@
 ## 제출자
 
-이름: 
+이름: 김건일
 
 ## 배포 링크
 
 <!-- 아래 예시 형식을 확인하고 실제 접속 가능한 웹 URL을 입력해 주세요 (.git 주소나 localhost 금지!) -->
-- Netlify 배포 URL: 
-- GitHub Pages 배포 URL: 
+- Netlify 배포 URL: https://joyful-moonbeam-fc3682.netlify.app/
+- GitHub Pages 배포 URL: https://saltedsec.github.io/26-w12-password/
 
 ## Release 태그
 
-- 태그: 
+- 태그: v1.0
 
 ## 체크리스트
 
-- [ ] `dev` → `main` 방향으로 PR을 보냈다 (main은 원본 보관용이므로 실제 merge는 하지 않습니다 — 리뷰용 제출입니다)
-- [ ] `npm create vite@latest .`로 React(JavaScript) 프로젝트를 직접 구성했다 (`base: './'`, `deploy` 스크립트 추가 포함)
-- [ ] `.gitignore`에 `.env`, `.env.*`를 추가했고, `.env` 파일이나 시크릿이 커밋되어 있지 않다
-- [ ] 두 배포 사이트(Netlify, GitHub Pages)가 정상 접속되며 강도 검사·생성기·유출 확인이 동작한다
-- [ ] 비밀번호 생성에 `Math.random()`이 아닌 `crypto.getRandomValues()`를 사용했다
-- [ ] Network 탭에서 유출 확인 요청에 SHA-1 해시 **앞 5글자만** 전송되는 것을 확인했다
-- [ ] `dev` 브랜치의 `README.md`를 작성했다 (Vite 구성 경험 / AI 기획·구현 과정 / 보안 점검 / 배포 링크)
-- [ ] Git 태그(v1.0)를 생성하고 push했다
+- [x] `dev` → `main` 방향으로 PR을 보냈다 (main은 원본 보관용이므로 실제 merge는 하지 않습니다 — 리뷰용 제출입니다)
+- [x] `npm create vite@latest .`로 React(JavaScript) 프로젝트를 직접 구성했다 (`base: './'`, `deploy` 스크립트 추가 포함)
+- [x] `.gitignore`에 `.env`, `.env.*`를 추가했고, `.env` 파일이나 시크릿이 커밋되어 있지 않다
+- [x] 두 배포 사이트(Netlify, GitHub Pages)가 정상 접속되며 강도 검사·생성기·유출 확인이 동작한다
+- [x] 비밀번호 생성에 `Math.random()`이 아닌 `crypto.getRandomValues()`를 사용했다
+- [x] Network 탭에서 유출 확인 요청에 SHA-1 해시 **앞 5글자만** 전송되는 것을 확인했다
+- [x] `dev` 브랜치의 `README.md`를 작성했다 (Vite 구성 경험 / AI 기획·구현 과정 / 보안 점검 / 배포 링크)
+- [x] Git 태그(v1.0)를 생성하고 push했다
 
 ## 한 줄 소감
 
@@ -29,3 +29,10 @@
 1. 미리 준비된 템플릿 없이 빈 저장소에서 Vite 프로젝트를 직접 차려 보니 무엇을 느꼈나요?
 2. 11주차의 "무전송 원칙"과 이번 주의 "최소 전송 원칙(k-익명성)"은 어떻게 다른지 한 줄로 정리해 주세요.
 -->
+1. 빈 저장소에서 직접 프로젝트를 차려본 소감
+
+준비된 틀 없이 처음부터 프로젝트와 배포 설정을 직접 구성해 보며 도구의 동작 원리를 배웠고, 비밀 환경설정 파일 차단부터 챙기는 보안 습관의 중요성을 느꼈습니다.
+
+2. 무전송 원칙 vs 최소 전송 원칙 한 줄 비교
+
+무전송이 통신 자체를 완전히 차단해 정보를 지킨다면, 최소 전송은 조회가 꼭 필요할 때 정답을 알아챌 수 없는 최소한의 조각만 보내고 진짜 확인은 내 브라우저에서 직접 하는 방식입니다.
