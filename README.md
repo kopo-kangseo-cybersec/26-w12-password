@@ -9,6 +9,16 @@ npm install
 npm run dev
 ```
 
+## 검증
+
+```bash
+npm test
+npm run lint
+npm run build
+```
+
+세 명령 모두 로컬에서 통과했습니다. `npm test`는 난수 생성, 강도 판정, 접두사 5글자 전송, 응답 대조와 API 오류 처리를 확인합니다.
+
 ## 보안 설계
 
 - 강도 검사는 입력 중 브라우저에서만 실행합니다.
@@ -44,8 +54,10 @@ Network 요청은 HTTP 200으로 응답했고, URL에는 SHA-1 접두사 5글자
 
 ## 배포 링크
 
-- Netlify: 배포 후 기입
-- GitHub Pages: 배포 후 기입
+- Netlify: 미배포 — Netlify 계정에서 이 저장소를 연결하고 `npm run build` / `dist`로 배포한 뒤 URL을 기입합니다.
+- GitHub Pages: 미배포 — `npm run build` 후 `npm run deploy`를 실행하고 Pages 설정을 마친 뒤 URL을 기입합니다.
+
+GitHub Pages 배포 스크립트는 빌드 결과물인 `dist`를 `gh-pages` 브랜치에 게시합니다. 실제 배포 URL은 계정과 저장소 설정에 따라 달라지므로 임의로 작성하지 않았습니다.
 
 ## 확장 기능
 
