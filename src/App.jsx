@@ -17,18 +17,38 @@ function App() {
     return "강함";
   };
 
+  const generatePassword = () => {
+    const chars =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*";
+
+    const array = new Uint32Array(12);
+    crypto.getRandomValues(array);
+
+    let result = "";
+
+    for (let i = 0; i < array.length; i++) {
+      result += chars[array[i] % chars.length];
+    }
+
+    setPassword(result);
+  };
+
   return (
     <div style={{ padding: "20px" }}>
       <h1>비밀번호 보안 점검기</h1>
 
       <input
         type="password"
-        placeholder="비밀번호 입력"
         value={password}
+        placeholder="비밀번호 입력"
         onChange={(e) => setPassword(e.target.value)}
       />
 
-      <h2>강도 : {getStrength()}</h2>
+      <p>강도: {getStrength()}</p>
+
+      <button onClick={generatePassword}>
+        안전한 비밀번호 생성
+      </button>
     </div>
   );
 }
