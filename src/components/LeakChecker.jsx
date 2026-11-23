@@ -2,6 +2,7 @@ import { useState } from 'react'
 
 function LeakChecker() {
   const [password, setPassword] = useState('')
+  const [show, setShow] = useState(false) // 비밀번호 보이기 여부
   const [message, setMessage] = useState('')
   const [sentPrefix, setSentPrefix] = useState('')
   const [loading, setLoading] = useState(false)
@@ -59,12 +60,18 @@ function LeakChecker() {
   return (
     <section className="card">
       <h2>유출 여부 확인</h2>
-      <input
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="확인할 비밀번호 입력"
-      />
+
+      <div className="input-row">
+        <input
+          type={show ? 'text' : 'password'}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="확인할 비밀번호 입력"
+        />
+        <button className="secondary" onClick={() => setShow(!show)}>
+          {show ? '숨기기' : '보기'}
+        </button>
+      </div>
 
       <p>
         <button onClick={checkLeak} disabled={password === '' || loading}>

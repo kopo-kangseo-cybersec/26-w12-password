@@ -76,13 +76,13 @@ function Generator() {
       <div>
         <label>
           <input type="checkbox" checked={useLower} onChange={() => setUseLower(!useLower)} /> 소문자
-        </label>{' '}
+        </label>
         <label>
           <input type="checkbox" checked={useUpper} onChange={() => setUseUpper(!useUpper)} /> 대문자
-        </label>{' '}
+        </label>
         <label>
           <input type="checkbox" checked={useNumbers} onChange={() => setUseNumbers(!useNumbers)} /> 숫자
-        </label>{' '}
+        </label>
         <label>
           <input type="checkbox" checked={useSymbols} onChange={() => setUseSymbols(!useSymbols)} /> 특수문자
         </label>
@@ -95,11 +95,11 @@ function Generator() {
       </p>
 
       {result && (
-        <div>
+        <div className="input-row">
           <input type="text" value={result} readOnly />
-          <p>
-            <button onClick={copy}>복사</button> {copied && '복사됨'}
-          </p>
+          <button className="secondary" onClick={copy}>
+            {copied ? '복사됨' : '복사'}
+          </button>
         </div>
       )}
 
