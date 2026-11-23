@@ -1,5 +1,16 @@
-# 12주차 — 비밀번호 보안 도구 (`26-w12-password`)
+# React + Vite
 
-이 저장소는 **거의 빈 저장소**입니다. Fork한 뒤 [`guide.md`](./guide.md)를 따라 `npm create vite@latest .`로 React 프로젝트를 직접 구성하면서 시작하세요.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-> 💡 Vite를 구성하면 이 `README.md`는 Vite 기본 안내문으로 덮어써집니다. 회고 양식은 [`README.template.md`](./README.template.md)에 따로 준비되어 있습니다.
+Currently, two official plugins are available:
+
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+
+## React Compiler
+
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+
+## Expanding the ESLint configuration
+
+If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
