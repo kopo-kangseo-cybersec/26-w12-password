@@ -1,122 +1,66 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import './App.css'
+import { useState } from 'react';
+import Header from './components/Header';
+import PasswordInspector from './components/PasswordInspector';
+import PasswordGenerator from './components/PasswordGenerator';
+import CryptoVault from './components/CryptoVault';
+import './App.css';
 
 function App() {
-  const [count, setCount] = useState(0)
+  // 상단 탭 상태 ('checker' | 'vault')
+  const [activeTab, setActiveTab] = useState('checker');
+
+  // 검사기에 전달될 비밀번호 상태 (휘발성 React State)
+  const [inspectedPassword, setInspectedPassword] = useState('');
+
+  // 생성기에서 생성된 비밀번호를 검사기에 즉시 적용하는 핸들러
+  const handleApplyToInspector = (newPassword) => {
+    setInspectedPassword(newPassword);
+    // 점검 탭으로 자동 전환 (만약 다른 탭에 있더라도)
+    setActiveTab('checker');
+  };
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+    <div className="app-container">
+      <Header activeTab={activeTab} setActiveTab={setActiveTab} />
 
-      <div className="ticks"></div>
+      <main className="main-content">
+        {activeTab === 'checker' ? (
+          <div className="checker-grid">
+            {/* 탭 1 좌측: 강도 및 유출 검사기 */}
+            <PasswordInspector
+              password={inspectedPassword}
+              onPasswordChange={setInspectedPassword}
+            />
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+            {/* 탭 1 우측: 안전 비밀번호 생성기 */}
+            <PasswordGenerator
+              onApplyToInspector={handleApplyToInspector}
+            />
+          </div>
+        ) : (
+          /* 탭 2: AES-GCM 암호화 금고 */
+          <CryptoVault />
+        )}
+      </main>
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+      <footer className="app-footer">
+        <div className="footer-content">
+          <div className="footer-item">
+            <span className="footer-dot"></span>
+            <span>암호학적 난수: <code>crypto.getRandomValues()</code></span>
+          </div>
+          <div className="footer-item">
+            <span className="footer-dot"></span>
+            <span>k-익명성 통신: <code>prefix 5자리 + Add-Padding</code></span>
+          </div>
+          <div className="footer-item">
+            <span className="footer-dot"></span>
+            <span>무저장 원칙: 브라우저 메모리 전용 (Zero Storage)</span>
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
 }
 
-export default App
+export default App;
