@@ -9,10 +9,9 @@
 
 ## Vite 프로젝트 직접 구성 경험
 
-<!--
-1. 빈 저장소에서 `npm create vite@latest .`로 직접 프로젝트를 차려 보니, 지난주(미리 준비된 템플릿)와 비교해 무엇이 달랐나요?
-2. `create-vite`가 README.md와 .gitignore를 덮어쓴 것을 보고 무엇을 느꼈나요? .gitignore에 무엇을 추가했고, 왜 필요한가요?
--->
+- 기존 템플릿과 달리 `create-vite`로 React JavaScript 프로젝트를 직접 구성하고, `npm install`과 `gh-pages` 설치 및 배포 설정을 진행했습니다.
+- Vite scaffold가 `README.md`를 기본 안내문으로 바꾸므로 회고 양식은 `README.template.md`에서 복원했습니다. `.gitignore`에는 `.env`, `.env.*`를 추가하고 `.env.example`은 예외로 두었습니다.
+- VS Code의 Go Live는 JSX를 변환하지 못하므로 Vite 개발 서버(`npm run dev`)로 실행해야 했습니다.
 
 ## 나의 AI 기획·구현 과정
 
@@ -30,12 +29,9 @@
 - 요청 경로에는 SHA-1 해시 앞 5글자만 포함되며, 비밀번호와 전체 해시는 전송하지 않습니다. 응답의 나머지 해시 대조는 브라우저 안에서 수행합니다.
 - 서버는 요청한 5글자 접두사와 IP 주소, 요청 시각을 볼 수 있으므로 완전한 익명은 아닙니다.
 
-<!--
-1. 비밀번호 생성에 Math.random() 대신 crypto.getRandomValues()를 써야 하는 이유는 무엇인가요?
-2. 유출 확인 시 Network 탭에서 확인한 실제 요청 주소를 그대로 적어 주세요. (예: https://api.pwnedpasswords.com/range/XXXXX)
-   비밀번호나 전체 해시가 전송되지 않았나요?
-3. k-익명성 방식으로도 서버가 알 수 있는 정보는 무엇인가요? (완전한 익명이 아닌 이유)
--->
+- `Math.random()`은 보안용 난수로 적합하지 않아 생성기에는 `crypto.getRandomValues()`를 사용합니다.
+- Network 탭에서 확인한 요청은 위 검증 결과와 같이 SHA-1 접두사 5글자만 포함했습니다. 비밀번호와 전체 해시는 전송하지 않습니다.
+- 서버는 접두사와 IP 주소, 요청 시각을 볼 수 있으므로 k-익명성은 비밀번호 자체를 숨기지만 요청 사실까지 숨기지는 않습니다.
 
 ## 실행 및 배포 링크
 
