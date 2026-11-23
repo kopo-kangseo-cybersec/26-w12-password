@@ -1,4 +1,5 @@
 :root {
+  /* 다크 모드 기본 변수 */
   --bg-primary: #0a0f1d;
   --bg-secondary: #111827;
   --bg-card: rgba(17, 24, 39, 0.85);
@@ -15,15 +16,47 @@
   --accent-amber: #f59e0b;
   --accent-rose: #f43f5e;
   
+  --input-bg: rgba(15, 23, 42, 0.85);
+  --box-bg: rgba(15, 23, 42, 0.6);
+  --box-subtle-bg: #0b1120;
+  --url-bg: #020617;
+  --btn-sec-bg: rgba(55, 65, 81, 0.8);
+
   --radius-sm: 6px;
   --radius-md: 10px;
   --radius-lg: 16px;
+}
+
+/* 라이트 모드 변수 */
+[data-theme='light'] {
+  --bg-primary: #f1f5f9;
+  --bg-secondary: #ffffff;
+  --bg-card: rgba(255, 255, 255, 0.95);
+  --border-color: rgba(203, 213, 225, 0.8);
+  --border-focus: #0284c7;
+  
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+
+  --accent-cyan: #0284c7;
+  --accent-blue: #2563eb;
+  --accent-emerald: #059669;
+  --accent-amber: #d97706;
+  --accent-rose: #e11d48;
+
+  --input-bg: #ffffff;
+  --box-bg: #f8fafc;
+  --box-subtle-bg: #f1f5f9;
+  --url-bg: #f8fafc;
+  --btn-sec-bg: #e2e8f0;
 }
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
 }
 
 body {
@@ -39,12 +72,18 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+[data-theme='light'] body {
+  background-image: 
+    radial-gradient(circle at 15% 15%, rgba(2, 132, 199, 0.06) 0%, transparent 40%),
+    radial-gradient(circle at 85% 85%, rgba(37, 99, 235, 0.06) 0%, transparent 40%);
+}
+
 code {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  background: rgba(0, 0, 0, 0.35);
+  background: var(--box-subtle-bg);
   padding: 0.2rem 0.4rem;
   border-radius: var(--radius-sm);
   font-size: 0.9em;
-  color: #38bdf8;
-  border: 1px solid rgba(56, 189, 248, 0.2);
+  color: var(--accent-cyan);
+  border: 1px solid var(--border-color);
 }

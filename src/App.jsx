@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import PasswordStrength from './components/PasswordStrength'
 import PasswordGenerator from './components/PasswordGenerator'
 import BreachChecker from './components/BreachChecker'
@@ -11,6 +11,16 @@ export default function App() {
   const [activeTab, setActiveTab] = useState('audit') // 'audit' | 'generator' | 'breach' | 'inspector'
   const [breachResult, setBreachResult] = useState(null)
   const [notification, setNotification] = useState(null)
+  const [theme, setTheme] = useState('dark') // 'dark' | 'light'
+
+  // 테마 변경 시 HTML 속성 업데이트
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme)
+  }, [theme])
+
+  const toggleTheme = () => {
+    setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'))
+  }
 
   const showNotification = (msg) => {
     setNotification(msg)
@@ -62,14 +72,26 @@ export default function App() {
           </div>
         </div>
 
-        <div className="header-status">
-          <span className="status-badge">
-            <span className="status-dot pulse-dot" />
-            최소 전송 원칙 준수 (k-Anonymity)
-          </span>
-          <span className="status-badge subtle">
-            CSPRNG 안전 난수
-          </span>
+        <div className="header-actions">
+          <button
+            type="button"
+            className="theme-toggle-btn"
+            onClick={toggleTheme}
+            title={theme === 'dark' ? '라이트 모드로 전환' : '다크 모드로 전환'}
+            aria-label="테마 전환"
+          >
+            {theme === 'dark' ? '☀️ 라이트 모드' : '🌙 다크 모드'}
+          </button>
+
+          <div className="header-status">
+            <span className="status-badge">
+              <span className="status-dot pulse-dot" />
+              최소 전송 원칙 준수 (k-Anonymity)
+            </span>
+            <span className="status-badge subtle">
+              CSPRNG 안전 난수
+            </span>
+          </div>
         </div>
       </header>
 
