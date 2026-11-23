@@ -12,11 +12,13 @@ import {
   Fingerprint,
   KeyRound,
   LockKeyhole,
+  Moon,
   RefreshCw,
   Shield,
   ShieldAlert,
   ShieldCheck,
   Sparkles,
+  Sun,
   Wifi,
 } from 'lucide-react'
 import { checkPasswordBreach, generatePassword, getPasswordStrength } from './passwordUtils.js'
@@ -29,6 +31,7 @@ const CHARACTER_OPTIONS = [
 ]
 
 function App() {
+  const [theme, setTheme] = useState('light')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const [length, setLength] = useState(20)
@@ -94,13 +97,25 @@ function App() {
   }
 
   return (
-    <div className="app-shell">
+    <div className="app-shell" data-theme={theme}>
       <header className="topbar">
         <a className="brand" href="#" aria-label="세이프키 홈">
           <span className="brand-mark"><ShieldCheck size={21} strokeWidth={2.2} /></span>
           <span>safe<span className="brand-accent">key</span></span>
         </a>
-        <div className="topbar-note"><span className="status-dot" /> 브라우저에서 안전하게 처리 중</div>
+        <div className="topbar-actions">
+          <button
+            className="theme-toggle"
+            type="button"
+            aria-label={theme === 'light' ? '다크 모드로 전환' : '화이트 모드로 전환'}
+            aria-pressed={theme === 'dark'}
+            onClick={() => setTheme((current) => current === 'light' ? 'dark' : 'light')}
+          >
+            {theme === 'light' ? <Moon size={15} /> : <Sun size={15} />}
+            <span>{theme === 'light' ? '다크 모드' : '화이트 모드'}</span>
+          </button>
+          <div className="topbar-note"><span className="status-dot" /> 브라우저에서 안전하게 처리 중</div>
+        </div>
       </header>
 
       <main>
